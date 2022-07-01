@@ -8,6 +8,32 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="container" class = "C">
+        <div id="header">
+            <h1 id = "title">Weather App</h1>
+            <div id = "mode">
+                <div id = "C" class = "visible">C</div>
+                <div id = "F" class = "">F</div>
+                <div id = "K" class = "">K</div>
+            </div>
+        </div>
+        <input type="text" placeholder = "Enter city" name = "city" id = "city">
+        <div id = "error"></div>
+        <div id = "content">
+            <div id = "top">
+                <h2 id = "left">Coquitlam</h2>
+                <div id = "right">
+                    <span id = "temperature">32C</span>
+                    <span id = "condition">Clear</span>
+                </div>
+            </div>
+            <ul id="misc">
+                <li id = "wind">Wind: 10km/h</li>
+                <li id = "humidity">Humidity: wet</li>
+                <li id = "pressure">Pressure: 1023kpa</li>
+            </ul>
+        </div>
+    </div>
     <script src="javascript.js"></script>    
 </body>
 </html>
