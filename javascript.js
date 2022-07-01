@@ -11,9 +11,8 @@ const wind = document.querySelector("#wind");
 const humidity = document.querySelector("#humidity");
 const pressure = document.querySelector("#pressure");
 
-
 const key = "a4bb711d04d826146a71f1c7214e615a";
-let mode = "C"
+let mode = "C";
 
 let cityData = {};
 let weatherData = {};
@@ -44,7 +43,7 @@ async function getWeather(lat, lon) {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`
     );
-    let data = await response.json()
+    let data = await response.json();
     console.log("Success!");
     weatherData = {
       temp: data.main.temp,
@@ -60,68 +59,67 @@ async function getWeather(lat, lon) {
 }
 
 function refresh() {
-    city.textContent = `${cityData.city}, ${cityData.country}`;
-    condition.textContent = weatherData.condition;
-    wind.textContent = `Wind speed: ${weatherData.wind} km/h`;
-    humidity.textContent = `Humidity: ${weatherData.humidity}%`;
-    pressure.textContent = `Pressure: ${Math.round(weatherData.pressure/10)} kPa`;
-    let temp;
-    if (mode==="C"){
-        temp = Math.round(weatherData.temp-273.5)
-    }
-    else if (mode==="F"){
-        temp = Math.round((weatherData.temp-273.5)*9/5+32)
-    }
-    else{
-        temp = Math.round(weatherData.temp);
-    }
-    temperature.textContent = `${temp}°${mode}`;
+  city.textContent = `${cityData.city}, ${cityData.country}`;
+  condition.textContent = weatherData.condition;
+  wind.textContent = `Wind speed: ${weatherData.wind} km/h`;
+  humidity.textContent = `Humidity: ${weatherData.humidity}%`;
+  pressure.textContent = `Pressure: ${Math.round(
+    weatherData.pressure / 10
+  )} kPa`;
+  let temp;
+  if (mode === "C") {
+    temp = Math.round(weatherData.temp - 273.5);
+  } else if (mode === "F") {
+    temp = Math.round(((weatherData.temp - 273.5) * 9) / 5 + 32);
+  } else {
+    temp = Math.round(weatherData.temp);
+  }
+  temperature.textContent = `${temp}°${mode}`;
 }
 
-async function setCity(city){
-    await getCoords(city);
-    if (cityData !== {} && cityData.city!==undefined){
-        await getWeather(cityData.lat, cityData.lon);
-        if (weatherData !== {} && weatherData.temp !==undefined) {
-            error.textContent = "";
-            refresh();
-        }
+async function setCity(city) {
+  await getCoords(city);
+  if (cityData !== {} && cityData.city !== undefined) {
+    await getWeather(cityData.lat, cityData.lon);
+    if (weatherData !== {} && weatherData.temp !== undefined) {
+      error.textContent = "";
+      refresh();
     }
-    else{
-        error.textContent = "Invalid city, please try again!"
-    }
+  } else {
+    error.textContent = "Invalid city, please try again!";
+  }
 }
 
-C.addEventListener('click', ()=>{
-    C.className = "visible";
-    F.className = "";
-    K.className = "";
-    mode = "C";
-    refresh();
+C.addEventListener("click", () => {
+  C.className = "visible";
+  F.className = "";
+  K.className = "";
+  mode = "C";
+  refresh();
 });
 
-F.addEventListener('click', ()=>{
-    C.className = "";
-    F.className = "visible";
-    K.className = "";
-    mode = "F"
-    refresh();
+F.addEventListener("click", () => {
+  C.className = "";
+  F.className = "visible";
+  K.className = "";
+  mode = "F";
+  refresh();
 });
 
-K.addEventListener('click', ()=>{
-    C.className = "";
-    F.className = "";
-    K.className = "visible";
-    mode = "K"
-    refresh();
+K.addEventListener("click", () => {
+  C.className = "";
+  F.className = "";
+  K.className = "visible";
+  mode = "K";
+  refresh();
 });
 
-input.addEventListener('keyup', async (event)=>{
-    if (event.code === 'Enter'){
-        event.preventDefault();
-        console.log(input.value);
-        setCity(input.value);
-    } 
+input.addEventListener("keyup", async (event) => {
+  if (event.code === "Enter") {
+    event.preventDefault();
+    console.log(input.value);
+    setCity(input.value);
+  }
 });
 
-setCity("Coquitlam")
+setCity("Coquitlam");
