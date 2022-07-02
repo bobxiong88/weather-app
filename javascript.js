@@ -20,7 +20,7 @@ let weatherData = {};
 async function getCoords(city) {
   try {
     const response = await fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${key}`
+      `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${key}`
     );
     let data = await response.json();
     data = data[0];
